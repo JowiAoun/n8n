@@ -14,6 +14,10 @@ services:
       - N8N_NATIVE_PYTHON_RUNNER=true
       - N8N_RUNNERS_AUTO_SHUTDOWN_TIMEOUT=300   # seconds, keep the runner alive when idle
       - N8N_RUNNERS_TASK_TIMEOUT=300          # seconds, allow long downloads
+      - N8N_BLOCK_ENV_ACCESS_IN_NODE=false
+      - N8N_GIT_NODE_DISABLE_BARE_REPOS=true
+      - DB_TYPE=sqlite
+      - DB_SQLITE_POOL_SIZE=3
     ports:
       - "5678:5678"
       - "5679:5679"
