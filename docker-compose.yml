@@ -23,8 +23,10 @@ services:
       - "5679:5679"
     volumes:
       - n8n_data:/home/node/.n8n
+      - shared_data:/data/shared
 
   runner:
+    user: "1000:1000"
     build:
       context: .
       dockerfile: Dockerfile
@@ -41,10 +43,11 @@ services:
       # - N8N_RUNNERS_LAUNCHER_LOG_LEVEL=debug
     volumes:
       - ./n8n-task-runners.json:/etc/n8n-task-runners.json:ro
+      - shared_data:/data/shared
     depends_on:
       - n8n
 
 volumes:
   n8n_data:
     external: true
-  n8n_python:
+  shared_data: 
