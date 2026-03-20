@@ -1,6 +1,8 @@
 services:
   n8n:
-    image: n8nio/n8n:1.121.1
+    build:
+      context: .
+      dockerfile: Dockerfile.n8n
     restart: always
     env_file:
       - ./n8n.env
@@ -12,8 +14,8 @@ services:
       - N8N_RUNNERS_MODE=external
       - N8N_RUNNERS_BROKER_LISTEN_ADDRESS=0.0.0.0
       - N8N_NATIVE_PYTHON_RUNNER=true
-      - N8N_RUNNERS_AUTO_SHUTDOWN_TIMEOUT=300   # seconds, keep the runner alive when idle
-      - N8N_RUNNERS_TASK_TIMEOUT=300          # seconds, allow long downloads
+      - N8N_RUNNERS_AUTO_SHUTDOWN_TIMEOUT=300
+      - N8N_RUNNERS_TASK_TIMEOUT=300
       - N8N_BLOCK_ENV_ACCESS_IN_NODE=false
       - N8N_GIT_NODE_DISABLE_BARE_REPOS=true
       - DB_TYPE=sqlite
@@ -40,7 +42,6 @@ services:
       - N8N_RUNNERS_AUTO_SHUTDOWN_TIMEOUT=300
       - N8N_RUNNERS_TASK_TIMEOUT=300
       - N8N_RUNNERS_LAUNCHER_RUNNER_TYPE=python
-      # - N8N_RUNNERS_LAUNCHER_LOG_LEVEL=debug
     volumes:
       - ./n8n-task-runners.json:/etc/n8n-task-runners.json:ro
       - shared_data:/data/shared
@@ -50,4 +51,4 @@ services:
 volumes:
   n8n_data:
     external: true
-  shared_data: 
+  shared_data:

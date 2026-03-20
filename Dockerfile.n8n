@@ -1,0 +1,10 @@
+FROM mwader/static-ffmpeg:latest AS ffmpeg-source
+
+FROM n8nio/n8n:1.121.1
+
+USER root
+
+COPY --from=ffmpeg-source /ffmpeg /usr/local/bin/
+COPY --from=ffmpeg-source /ffprobe /usr/local/bin/
+
+USER node
